@@ -1,13 +1,11 @@
 {
   "name": "@vensst/vue-widget",
   "version": "0.1.0",
-  "description": "基于element组件中Select 选择器和Tree 树形控件扩展出来的树结构数据下拉选择器",
-  "keyword": "tree-select tree select",
-  "author": "pengyh",
+  "description": "vue组件",
+  "author": "vensst",
   "keywords": [
-    "js工具类",
-    "js常用函数",
-    "js-toolkit-fn"
+    "vue",
+    "组件"
   ],
   "main": "lib/@vensst/vue-widget.umd.min.js",
   "private": false,
