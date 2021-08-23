@@ -34,9 +34,11 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - run: npm publish
+      # npm ERR! 402 Payment Required - PUT https://registry.npmjs.org/@vensst%2fvue-widget - You must sign up for private packages
+      # @xxx/xxxx   npm会认为要发布私包，私包需要收费，需将发布命令改成： npm publish --access public
+      - run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{NPM_PUBLISH_TOKEN}}
-      
+          NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
+
 
 
