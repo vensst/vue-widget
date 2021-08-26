@@ -5244,6 +5244,11 @@ js-tokens@^4.0.0:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
+js-toolkit-fn@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/js-toolkit-fn/-/js-toolkit-fn-1.0.7.tgz#b2beb1f9ef069e7382031054e8e6adcfdbe835a6"
+  integrity sha512-gFubVF44EKysPHwzErPIyLnw0IW+6WIaeY770kOM22Z/jLFYS8IEUX8qdxlSigwIEqmOnOP48leEU/XbxDYO9Q==
+
 js-yaml@^3.13.1:
   version "3.14.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.14.1.tgz#dae812fdb3825fa306609a8717383c50c36a0537"

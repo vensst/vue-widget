@@ -1,24 +1,17 @@
-# vue-widget
+# @vensst/vue-widget
 
-## Project setup
+## 安装
 ```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
+npm i @vensst/vue-widget -S
 ```
 
-### Compiles and minifies for production
+## 使用
 ```
-yarn build
+import VueWidget from "@vensst/vue-widget";
+Vue.use(VenWidget);
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 更新
+2021-08-26
+* 增加滑动验证组件
+* 增加自定义指令v-drag拖动
+* md更改
