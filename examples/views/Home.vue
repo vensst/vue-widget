@@ -5,6 +5,7 @@
         <router-link :to="item.path">{{ item.meta.title }}</router-link>
       </li>
     </ul>
+    <div class="msg">{{ msg }}</div>
   </div>
 </template>
 
@@ -19,11 +20,10 @@ export default {
   data() {
     return {
       routes,
+      msg: "我是msg",
     };
   },
-  mounted() {
-    console.log(this.routes);
-  },
+  mounted() {},
   methods: {},
 };
 </script>

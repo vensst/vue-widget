@@ -32,13 +32,12 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    getCode(val){
-      console.log(val)
+    getCode(val) {
+      console.log(val);
     },
-    getVal(val){
-      console.log(val)
-    }
+    getVal(val) {
+      console.log(val);
+    },
   },
 };
 </script>
-<style scoped></style>

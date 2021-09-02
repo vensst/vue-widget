@@ -2,7 +2,7 @@
  * @name: drag
  * @author: yfhu
  * @date: 2021/8/26 9:48
- * @description：drag
+ * @description：v-drag 移动端、pc端拖拽指令
  * @update: 2021/8/26 9:48
  */
 /**

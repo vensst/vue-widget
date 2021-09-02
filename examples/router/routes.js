@@ -8,7 +8,7 @@
 const routes = [
   {
     path: "/",
-    name:"Home",
+    name: "Home",
     meta: {
       title: "首页",
     },
@@ -16,7 +16,7 @@ const routes = [
   },
   {
     path: "/drag",
-    name:"Drag",
+    name: "Drag",
     meta: {
       title: "拖拽",
     },
@@ -24,11 +24,20 @@ const routes = [
   },
   {
     path: "/captcha",
-    name:"Captcha",
+    name: "Captcha",
     meta: {
       title: "图形验证码",
     },
-    component: () => import(/* webpackChunkName: "examples" */ "../views/Captcha"),
+    component: () =>
+      import(/* webpackChunkName: "examples" */ "../views/Captcha"),
+  },
+  {
+    path: "/lazy",
+    name: "Lazy",
+    meta: {
+      title: "图片懒加载",
+    },
+    component: () => import(/* webpackChunkName: "examples" */ "../views/Lazy"),
   },
 ];
 export default routes;
