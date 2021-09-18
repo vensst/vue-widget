@@ -8,10 +8,30 @@
       @click="clickEvent"
     ></VenDrag>
     <VDrag>移动端</VDrag>
-    <div v-dragPc style="width: 100px;height: 100px;display: inline-block;cursor: pointer;background:#ddd;position: absolute">
+    <div
+      v-dragPc
+      style="
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        cursor: pointer;
+        background: #ddd;
+        position: absolute;
+      "
+    >
       pc端局部指令
     </div>
-    <div v-drag="{isRange:false}" style="width: 100px;height: 100px;display: inline-block;cursor: pointer;background:#ddd;left: 200px">
+    <div
+      v-drag="{ isRange: false }"
+      style="
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        cursor: pointer;
+        background: #ddd;
+        left: 200px;
+      "
+    >
       pc/移动端全局指令
     </div>
   </div>
@@ -29,7 +49,7 @@ export default {
   name: "Drag",
   mixins: [],
   components: {
-    VDrag:Drag
+    VDrag: Drag,
   },
   props: {},
   directives: {
@@ -58,8 +78,7 @@ export default {
     },
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {},
   watch: {},

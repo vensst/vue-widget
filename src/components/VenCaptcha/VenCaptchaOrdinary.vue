@@ -2,8 +2,8 @@
   <canvas
     id="ven-captcha-ordinary"
     class="ven-captcha-ordinary"
-    :width="newOptions.contentWidth?newOptions.contentWidth + 'px':''"
-    :height="newOptions.contentHeight?newOptions.contentHeight  + 'px':''"
+    :width="newOptions.contentWidth ? newOptions.contentWidth + 'px' : ''"
+    :height="newOptions.contentHeight ? newOptions.contentHeight + 'px' : ''"
     @click="init"
   >
   </canvas>
@@ -194,7 +194,7 @@ export default {
       }
       this.selectCodeArr = selectCodeArr;
       this.selectCode = selectCodeArr.join("");
-      this.$emit('getCode',this.selectCode)
+      this.$emit("getCode", this.selectCode);
       this.drawPic();
     },
     /**
