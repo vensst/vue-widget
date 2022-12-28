@@ -23,6 +23,11 @@ module.exports = {
       // filename: "index.html", // 输出文件
     },
   },
+  devServer: {
+    // https: true,
+    port: 8773,
+  },
+
   productionSourceMap: false,
   css: {
     //https://cli.vuejs.org/zh/config/#css-extract

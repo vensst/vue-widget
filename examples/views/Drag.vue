@@ -6,7 +6,7 @@
       right="20px"
       bottom="20px"
       @click="clickEvent"
-    ></VenDrag>
+    >111</VenDrag>
     <VDrag>移动端</VDrag>
     <div
       v-dragPc

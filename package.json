@@ -1,6 +1,6 @@
 {
   "name": "@vensst/vue-widget",
-  "version": "0.1.1",
+  "version": "0.1.1-beta.1",
   "description": "vue组件",
   "author": "vensst",
   "keywords": [
@@ -16,9 +16,12 @@
     "lib": "vue-cli-service build --target lib --name @vensst/vue-widget --dest lib src/index.js"
   },
   "dependencies": {
+    "@vensst/js-toolkit": "^1.0.5-beta.2",
     "core-js": "^3.6.5",
-    "js-toolkit-fn": "^1.0.7",
+    "html5-qrcode": "^2.2.1",
+    "resize-observer-polyfill": "^1.5.1",
     "sass-loader": "^12.1.0",
+    "throttle-debounce": "^5.0.0",
     "vue": "^2.6.11",
     "vue-lazyload": "^1.3.3",
     "vue-router": "^3.2.0"
@@ -35,6 +38,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "lint-staged": "^9.5.0",
     "prettier": "^2.2.1",
+    "vconsole": "^3.14.6",
     "vue-template-compiler": "^2.6.11"
   },
   "license": "MIT",

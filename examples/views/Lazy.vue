@@ -8,6 +8,7 @@
       height="200px"
     />
     <img v-lazy="'../assets/images/test.jpeg'" width="200px;" height="200px" />
+    <hr>
     <img src="../assets/images/test.jpeg" width="200px;" height="200px" />
     <img src="../assets/images/error.jpg" width="200px;" height="200px" />
     <img src="../assets/images/loading.gif" width="200px;" height="200px" />

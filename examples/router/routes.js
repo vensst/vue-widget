@@ -39,5 +39,21 @@ const routes = [
     },
     component: () => import(/* webpackChunkName: "examples" */ "../views/Lazy"),
   },
+  {
+    path: "/scan-code",
+    name: "ScanCode",
+    meta: {
+      title: "扫码",
+    },
+    component: () => import(/* webpackChunkName: "examples" */ "../views/ScanCode"),
+  },
+  {
+    path: "/signature",
+    name: "Signature",
+    meta: {
+      title: "电子签名",
+    },
+    component: () => import(/* webpackChunkName: "examples" */ "../views/Signature"),
+  },
 ];
 export default routes;

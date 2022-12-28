@@ -7,11 +7,16 @@ import loading from "./assets/images/loading.gif";
 Vue.use(VenWidget, {
   lazy: {
     preLoad: 1.3,
-    error: error,
-    loading: loading,
+    error: error, // 懒加载 错误图片
+    loading: loading, // 懒加载 加载图片
     attempt: 1,
   },
 });
+
+import VConsole from "vconsole";
+let vConsole = new VConsole();
+console.log(vConsole);
+
 Vue.config.productionTip = false;
 new Vue({
   router,
