@@ -19,11 +19,12 @@
 </template>
 <script>
 import { isFunction } from "@vensst/js-toolkit";
+
 const config = {
   lineWidth: 4, // 线宽
   strokeStyle: "#000000", // 线条颜色
   lineCap: "round", // 设置线条两端圆角
-  lineJoin: "round", // 线条交汇处圆角
+  lineJoin: "round" // 线条交汇处圆角
 };
 export default {
   name: "VenSignature",
@@ -32,8 +33,8 @@ export default {
   props: {
     options: {
       type: Object,
-      default: () => ({}),
-    },
+      default: () => ({})
+    }
   },
   data() {
     return {
@@ -43,18 +44,18 @@ export default {
         offsetX: 0, // 偏移量
         offsetY: 0,
         endX: 0, // 坐标
-        endY: 0,
+        endY: 0
       },
-      ctx: null,
+      ctx: null
     };
   },
   computed: {
     config() {
       return {
         ...config,
-        ...this.options,
+        ...this.options
       };
-    },
+    }
   },
   watch: {},
   created() {
@@ -175,7 +176,7 @@ export default {
     save() {
       if (isFunction(this.options.saveCallback)) {
         this.canvas.toBlob((blob) => {
-          this.options.saveCallback(blob);
+          this.options.saveCallback({ blob, canvas: this.canvas });
         });
       } else {
         // 将canvas上的内容转成blob流
@@ -194,8 +195,8 @@ export default {
           a.remove();
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
