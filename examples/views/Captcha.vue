@@ -1,25 +1,16 @@
 <template>
   <div class="">
-    <VenCaptchaOrdinary
-      :options="{
-        contentWidth: 120,
-        contentHeight: 38,
-      }"
-      @getCode="getCode"
-    ></VenCaptchaOrdinary>
-    <VenCaptchaSlide @getVal="getVal"></VenCaptchaSlide>
+    <VenCaptcha
+      type="ordinary"
+      @change="onChange"
+    ></VenCaptcha>
+    <VenCaptcha type="slide" @change="onChange"></VenCaptcha>
   </div>
 </template>
 <script>
-/**
- * @name: Captcha
- * @author: yfhu
- * @date: 2021/8/24 11:10
- * @description：Captcha.vue
- * @update: 2021/8/24 11:10
- */
 export default {
   name: "Captcha",
+  title: "验证码",
   mixins: [],
   components: {},
   props: {},
@@ -32,11 +23,8 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    getCode(val) {
-      console.log(val);
-    },
-    getVal(val) {
-      console.log(val);
+    onChange(e) {
+      console.log(e);
     },
   },
 };

@@ -5,6 +5,25 @@
  * @description：routes
  * @update: 2021/8/24 10:36
  */
+const modulesFiles = require.context("../views/", true, /\.vue$/);
+const _routes = [];
+modulesFiles.keys().map((modulePath) => {
+  const moduleName = modulePath.replace(/^\.\/(.*)\.vue/, "$1");
+  const component = modulesFiles(modulePath).default;
+
+  if (moduleName !== "Home") {
+    const obj = {
+      path: `/${moduleName}`,
+      name: moduleName,
+      meta: {
+        title: component.title || moduleName,
+      },
+      component: component,
+    };
+    _routes.push(obj);
+  }
+});
+
 const routes = [
   {
     path: "/",
@@ -14,30 +33,8 @@ const routes = [
     },
     component: () => import(/* webpackChunkName: "examples" */ "../views/Home"),
   },
-  {
-    path: "/drag",
-    name: "Drag",
-    meta: {
-      title: "拖拽",
-    },
-    component: () => import(/* webpackChunkName: "examples" */ "../views/Drag"),
-  },
-  {
-    path: "/captcha",
-    name: "Captcha",
-    meta: {
-      title: "图形验证码",
-    },
-    component: () =>
-      import(/* webpackChunkName: "examples" */ "../views/Captcha"),
-  },
-  {
-    path: "/lazy",
-    name: "Lazy",
-    meta: {
-      title: "图片懒加载",
-    },
-    component: () => import(/* webpackChunkName: "examples" */ "../views/Lazy"),
-  },
+
+  ..._routes,
 ];
+console.log(routes);
 export default routes;

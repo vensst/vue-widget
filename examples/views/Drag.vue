@@ -1,82 +1,23 @@
 <template>
   <div class="">
-    <VenDrag
-      width="100px"
-      height="100px"
-      right="20px"
-      bottom="20px"
-      @click="clickEvent"
-    ></VenDrag>
-    <VDrag>移动端</VDrag>
-    <div
-      v-dragPc
-      style="
-        width: 100px;
-        height: 100px;
-        display: inline-block;
-        cursor: pointer;
-        background: #ddd;
-        position: absolute;
-      "
-    >
-      pc端局部指令
-    </div>
-    <div
-      v-drag="{ isRange: false }"
-      style="
-        width: 100px;
-        height: 100px;
-        display: inline-block;
-        cursor: pointer;
-        background: #ddd;
-        left: 200px;
-      "
-    >
-      pc/移动端全局指令
-    </div>
+    <VenDrag class="avatar" style="left: 25%"> 拖拽(有边界) </VenDrag>
+    <VenDrag class="avatar" :isDrag="false" style="left: 50%">
+      禁止拖拽
+    </VenDrag>
+    <VenDrag class="avatar" :isRange="false" style="left: 75%">
+      拖拽(无边界)
+    </VenDrag>
+
+    <div class="avatar" v-drag="{ isRange: true }">v-drag指令</div>
   </div>
 </template>
 <script>
-/**
- * @name: Drag
- * @author: yfhu
- * @date: 2021/8/24 10:25
- * @description：Drag.vue
- * @update: 2021/8/24 10:25
- */
-import Drag from "../components/Drag";
 export default {
   name: "Drag",
+  title: "拖拽",
   mixins: [],
-  components: {
-    VDrag: Drag,
-  },
+  components: {},
   props: {},
-  directives: {
-    dragPc: function (el) {
-      let dragBox = el;
-      dragBox.onmousedown = (e) => {
-        //算出鼠标相对元素的位置
-        let disX = e.clientX - dragBox.offsetLeft;
-        let disY = e.clientY - dragBox.offsetTop;
-        document.onmousemove = (e) => {
-          //用鼠标的位置减去鼠标相对元素的位置，得到元素的位置
-          let left = e.clientX - disX;
-          let top = e.clientY - disY;
-          //移动当前元素
-          dragBox.style.left = left + "px";
-          dragBox.style.top = top + "px";
-        };
-        document.onmouseup = (e) => {
-          console.log(e);
-          //鼠标弹起来的时候不再移动
-          document.onmousemove = null;
-          //预防鼠标弹起来后还会循环（即预防鼠标放上去的时候还会移动）
-          document.onmouseup = null;
-        };
-      };
-    },
-  },
   data() {
     return {};
   },
@@ -92,4 +33,12 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.avatar {
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  border-radius: 50%;
+  background: #ddd;
+}
+</style>

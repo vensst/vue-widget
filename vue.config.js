@@ -1,10 +1,3 @@
-/**
- * @name: vue.config
- * @author: yfhu
- * @date: 2021/8/19 14:31
- * @description：vue.config
- * @update: 2021/8/19 14:31
- */
 const path = require("path");
 module.exports = {
   //部署应用包时的基本 URL

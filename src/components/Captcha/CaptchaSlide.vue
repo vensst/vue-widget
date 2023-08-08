@@ -2,14 +2,18 @@
   <div
     class="ven-captcha-slide"
     :style="{
-      width: width + 'px',
-      height: height + 'px',
-      lineHeight: height + 'px',
+      width: _contentWidthUnit,
+      height: _contentHeightUnit,
+      lineHeight: _contentHeightUnit,
     }"
   >
     <div
       class="ven-captcha-slide__bg"
-      :style="{ background: '#7ac23c', width: 0, height: height + 'px' }"
+      :style="{
+        background: '#7ac23c',
+        width: 0,
+        height: _contentHeightUnit,
+      }"
     ></div>
     <div class="ven-captcha-slide__text">{{ text }}</div>
     <div
@@ -17,34 +21,33 @@
         'ven-captcha-slide__btn',
         isOk ? 'ven-captcha-slide__btn--success' : '',
       ]"
-      :style="{ width: btnWidth + 'px', height: height + 'px' }"
+      :style="{
+        width: _contentHeightUnit,
+        height: _contentHeightUnit,
+      }"
     ></div>
   </div>
 </template>
 <script>
-/**
- * @name: VenCaptchaSlide
- * @author: yfhu
- * @date: 2021/8/26 13:12
- * @description：VenCaptchaSlide.vue
- * @update: 2021/8/26 13:12
- */
+import { isMobile } from "@vensst/js-toolkit";
+import { hasUnit, removeUnit } from "~/utils";
+
+const defaultOptions = {
+  //宽高
+  contentWidth: 300,
+  contentHeight: 32,
+};
 export default {
-  name: "VenCaptchaSlide",
+  name: "CaptchaSlide",
   mixins: [],
   components: {},
   props: {
-    width: {
-      type: Number,
-      default: 300,
-    },
-    height: {
-      type: Number,
-      default: 32,
-    },
-    btnWidth: {
-      type: Number,
-      default: 34,
+    //配置
+    options: {
+      type: Object,
+      default: function () {
+        return {};
+      },
     },
   },
   directives: {},
@@ -54,7 +57,31 @@ export default {
       isOk: false,
     };
   },
-  computed: {},
+  computed: {
+    newOptions() {
+      return { ...defaultOptions, ...this.options };
+    },
+    _contentWidthUnit() {
+      if (hasUnit(this.newOptions.contentWidth)) {
+        return this.newOptions.contentWidth;
+      } else {
+        return this.newOptions.contentWidth + "px";
+      }
+    },
+    _contentHeightUnit() {
+      if (hasUnit(this.newOptions.contentHeight)) {
+        return this.newOptions.contentHeight;
+      } else {
+        return this.newOptions.contentHeight + "px";
+      }
+    },
+    _contentWidth() {
+      return Number(removeUnit(this.newOptions.contentWidth));
+    },
+    _contentHeight() {
+      return Number(removeUnit(this.newOptions.contentHeight));
+    },
+  },
   watch: {},
   beforeCreate() {},
   created() {},
@@ -62,6 +89,8 @@ export default {
     this.initEvent();
   },
   methods: {
+    hasUnit,
+    removeUnit,
     initEvent() {
       let el = document.querySelector(".ven-captcha-slide__btn");
       let boxEl = document.querySelector(".ven-captcha-slide");
@@ -70,20 +99,9 @@ export default {
       const { offsetWidth } = el;
       const { clientWidth } = boxEl;
       let maxClientWidth = clientWidth - offsetWidth; //最大可移动宽度
-      const mobile = [
-        "android",
-        "iphone",
-        "symbianos",
-        "windows phone",
-        "ipad",
-        "ipod",
-      ];
-      let agent = window.navigator.userAgent.toLowerCase(),
-        start,
-        move,
-        end;
+      let start, move, end;
       //判断当前是移动端还是PC，移动端touch，PC端mouse
-      if (mobile.some((i) => agent.indexOf(i) > 0)) {
+      if (isMobile()) {
         start = "ontouchstart"; //手指按下
         move = "ontouchmove"; //手指移动
         end = "ontouchend"; //手指放开
@@ -105,6 +123,7 @@ export default {
         //计算出鼠标到元素左上角距离
         mouseToELDistanceX = touch.clientX - el.offsetLeft;
         document[move] = (e) => {
+          if (this.isOk) return;
           let touch;
           if (e.touches) {
             touch = e.touches[0];
@@ -123,17 +142,17 @@ export default {
           bgEl.style.width = left + "px";
           el.style.left = left + "px";
           //滑动背景宽度+元素宽度=容器宽度说明滑到底了
-          if (left + offsetWidth >= this.width) {
+          if (left + offsetWidth >= this.newOptions.contentWidth) {
             this.isOk = true;
             this.text = "验证通过";
-            this.$emit("getVal", this.isOk);
+            this.$emit("change", this.isOk);
           }
         };
         document[end] = () => {
           if (!this.isOk) {
             bgEl.style.width = 0;
             el.style.left = 0;
-            this.$emit("getVal", this.isOk);
+            this.$emit("change", this.isOk);
           }
           document[start] = null;
           document[move] = null;

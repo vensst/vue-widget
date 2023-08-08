@@ -14,15 +14,9 @@
   </div>
 </template>
 <script>
-/**
- * @name: Lazy
- * @author: yfhu
- * @date: 2021/9/2 14:48
- * @description：Lazy.vue
- * @update: 2021/9/2 14:48
- */
 export default {
   name: "Lazy",
+  title: "图片懒加载",
   mixins: [],
   components: {},
   props: {},
