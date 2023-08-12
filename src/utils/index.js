@@ -1,4 +1,5 @@
-import { isMobile } from "@vensst/js-toolkit";
+import { isMobile, $ } from "@vensst/js-toolkit";
+
 const hasUnit = function (str) {
   if (typeof str !== "string") return false;
   const unitPattern = /[a-zA-Z]+$/; // 匹配以字母组成的单位
@@ -11,10 +12,16 @@ const removeUnit = function (str) {
   return str.replace(/[a-zA-Z]+$/, "");
 };
 
-const bindDragEvent = function (el, isRange) {
+const bindDragEvent = function (parentElSelector, el, isRange) {
+  if (parentElSelector === "body") {
+    el.style.position = "fixed";
+  } else {
+    el.style.position = "absolute";
+  }
+  el.style.cursor = "pointer";
   //元素宽高
   const { offsetWidth, offsetHeight } = el;
-  const { clientWidth, clientHeight } = document.body;
+  const { clientWidth, clientHeight } = $(parentElSelector);
   let maxClientWidth = clientWidth - offsetWidth; //最大可移动宽度
   let maxClientHeight = clientHeight - offsetHeight; //最大可移动高度
 

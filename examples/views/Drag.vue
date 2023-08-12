@@ -1,14 +1,31 @@
 <template>
   <div class="">
-    <VenDrag class="avatar" style="left: 25%"> 拖拽(有边界) </VenDrag>
+    <div
+        id="boxID"
+        style="
+        position: relative;
+        width: 500px;
+        height: 500px;
+        border: 1px solid #ddd;
+      "
+    >
+      <VenDrag class="avatar" style="left: 25%" parentElSelector="#boxID">
+        拖拽(有边界)
+      </VenDrag>
+
+    </div>
     <VenDrag class="avatar" :isDrag="false" style="left: 50%">
       禁止拖拽
     </VenDrag>
     <VenDrag class="avatar" :isRange="false" style="left: 75%">
       拖拽(无边界)
     </VenDrag>
-
-    <div class="avatar" v-drag="{ isRange: true }">v-drag指令</div>
+    <div
+        class="avatar"
+        v-drag="{ isRange: true}"
+    >
+      v-drag指令
+    </div>
   </div>
 </template>
 <script>
@@ -23,9 +40,12 @@ export default {
   },
   computed: {},
   watch: {},
-  beforeCreate() {},
-  created() {},
-  mounted() {},
+  beforeCreate() {
+  },
+  created() {
+  },
+  mounted() {
+  },
   methods: {
     clickEvent(e) {
       console.log(e);

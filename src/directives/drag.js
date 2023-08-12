@@ -1,4 +1,5 @@
-import { bindDragEvent } from "~/utils";
+import {bindDragEvent} from "~/utils";
+
 /**
  * https://cn.vuejs.org/v2/guide/custom-directive.html
  * 钩子函数 bind，inserted update componentUpdated unbind
@@ -13,12 +14,18 @@ import { bindDragEvent } from "~/utils";
  */
 const drag = {
   inserted: function (el, binding) {
-    el.style.position = "fixed";
+
     let isRange = true;
-    if (binding.value && binding.value.isRange !== undefined) {
-      isRange = binding.value.isRange;
+    let parentElSelector = 'body';
+    if (binding.value) {
+      if (binding.value.isRange !== undefined) {
+        isRange = binding.value.isRange;
+      }
+      if (binding.value.parentElSelector) {
+        parentElSelector = binding.value.parentElSelector;
+      }
     }
-    bindDragEvent(el, isRange);
+    bindDragEvent(parentElSelector, el, isRange);
   },
 };
 export default drag;

@@ -28,9 +28,7 @@ export default {
   watch: {},
   beforeCreate() {},
   created() {},
-
   mounted() {},
-
   methods: {},
 };
 </script>

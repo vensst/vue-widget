@@ -19,6 +19,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    parentElSelector: {
+      type: String,
+      default: "body",
+    },
   },
   data() {
     return {};
@@ -34,7 +38,7 @@ export default {
   methods: {
     initEvent() {
       let el = this.$refs.dragRef;
-      bindDragEvent(el, this.isRange);
+      bindDragEvent(this.parentElSelector, el, this.isRange);
       // //元素宽高
       // const { offsetWidth, offsetHeight } = el;
       // const { clientWidth, clientHeight } = document.body;
@@ -101,9 +105,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-.ven-drag {
-  position: fixed;
-  cursor: pointer;
-}
-</style>
+<style scoped></style>
