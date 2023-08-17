@@ -1,0 +1,8 @@
+$vxe-font-size: 14px;
+$vxe-font-color: #666;
+$vxe-primary-color: red;
+$vxe-table-font-color: $vxe-font-color;
+$vxe-table-border-color: #e8eaec;
+$vxe-table-border-radius: 4px;
+
+@import "../../src/styles/table.scss";

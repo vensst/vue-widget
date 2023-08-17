@@ -4,7 +4,7 @@ import router from "./router";
 import VenWidget from "../src/index.js";
 import error from "./assets/images/error.jpg";
 import loading from "./assets/images/loading.gif";
-
+import "./styles/table.scss";
 // 配置方式
 Vue.use(VenWidget, {
   lazy: { // 配置与 vue-lazyload 配置一样

@@ -21,14 +21,14 @@ const components = modulesFiles.keys().reduce((modules, modulePath) => {
   return modules;
 }, {});
 
-const VenWidget = {
+const VueWidget = {
   VueLazyload,
   ...components,
   directives,
   install: null,
 };
 
-VenWidget.install = function (Vue, options = {}) {
+VueWidget.install = function (Vue, options = {}) {
   // 第三方组件
   useVXETable(Vue, options.table);
 
@@ -48,7 +48,7 @@ VenWidget.install = function (Vue, options = {}) {
 
 // 判断是否是直接引入文件
 if (typeof window !== "undefined" && window.Vue) {
-  VenWidget.install(window.Vue);
+  VueWidget.install(window.Vue);
 }
 
-export default VenWidget;
+export default VueWidget;
