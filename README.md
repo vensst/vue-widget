@@ -1,8 +1,6 @@
 # 开始
 
-::: tip
 该组件库使用 Vue 2.x 开发
-:::
 
 ## 介绍
 
@@ -71,7 +69,7 @@ import {drag} from "@vensst/vue-widget/src/directives/index.js";
 Vue.directive("drag", drag);
 ```
 
-## 自定义主题
+## 自定义table主题
 与官网一致，你可以通过修改scss变量来自定义主题，具体参考[vxe-table主题](https://vxetable.cn/v3/#/table/start/theme)
 ```scss
    // 修改scss变量
@@ -83,5 +81,5 @@ Vue.directive("drag", drag);
       $vxe-table-border-radius: 4px;
       // ...
 
-      @import '@vensst/vue-widget/styles/table.scss';
+      @import '@vensst/vue-widget/src/styles/table.scss';
 ```

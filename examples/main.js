@@ -5,9 +5,12 @@ import VenWidget from "../src/index.js";
 import error from "./assets/images/error.jpg";
 import loading from "./assets/images/loading.gif";
 import "./styles/table.scss";
+
+console.log(VenWidget);
 // 配置方式
 Vue.use(VenWidget, {
-  lazy: { // 配置与 vue-lazyload 配置一样
+  lazy: {
+    // 配置与 vue-lazyload 配置一样
     preLoad: 1.3,
     error: error,
     loading: loading,
@@ -17,7 +20,7 @@ Vue.use(VenWidget, {
     components: ["Button"], // 按需引入组件
     // components:'all', // 为 all 则会全部引入
     options: {}, // 表格配置项 参考 https://vxetable.cn/v3/#/table/start/global
-  }
+  },
 });
 
 // 按需引入组件

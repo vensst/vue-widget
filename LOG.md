@@ -1,4 +1,11 @@
 # 更新日志
+
+## 1.0.0-beta.4 (2023-9-4)
+
+### Features
+
+* 新增 Teleport（类似vue3的Teleport组件）、ContextMenu右键菜单组件
+
 ## 1.0.0-beta.3 (2023-8-17)
 
 ### Features

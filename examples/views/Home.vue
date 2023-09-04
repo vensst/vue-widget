@@ -24,6 +24,12 @@ export default {
     };
   },
   mounted() {},
+  beforeDestroy(){
+    console.log(this)
+  },
+  destroy(){
+    console.log(this)
+  },
   methods: {},
 };
 </script>
