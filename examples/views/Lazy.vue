@@ -1,8 +1,7 @@
 <template>
   <div class="">
     <img
-      v-lazy="
-        'http://bpic.588ku.com/element_origin_min_pic/16/10/29/2ac8e99273bc079e40a8dc079ca11b1f.jpg'
+      v-lazy="'http://bpic.588ku.com/element_origin_min_pic/16/10/29/2ac8e99273bc079e40a8dc079ca11b1f.jpg'
       "
       width="200px;"
       height="200px"
@@ -15,7 +14,7 @@
 </template>
 <script>
 export default {
-  name: "Lazy",
+  // name: "Lazy",
   title: "图片懒加载",
   mixins: [],
   components: {},
@@ -28,7 +27,9 @@ export default {
   watch: {},
   beforeCreate() {},
   created() {},
-  mounted() {},
+  mounted() {
+    console.log(this)
+  },
   methods: {},
 };
 </script>

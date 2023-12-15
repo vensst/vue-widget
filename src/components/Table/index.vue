@@ -3,14 +3,13 @@
  * @Description: 表格
  * @Date: 2023/8/9 16:45
  * @Author: huyafei
- * @LastEditors: huyafei
- * @LastEditTime: 2023/8/9 16:45
+ * @LastEditors: yfhu
+ * @LastEditTime: 2023-10-27 14:25:30
 -->
 <template>
-  <div>
+  <!--<div>-->
+  <Fragment>
     <vxe-table
-      class="table--style"
-      header-cell-class-name="header-cell--height"
       ref="vxeTableRef"
       v-bind="_attrs"
       v-on="_listeners"
@@ -26,15 +25,14 @@
           <slot :name="itemColumn.slot" v-bind="scope"></slot>
         </template>
       </vxe-column>
+      <template v-if="$slots.empty" #empty>
+        <slot name="empty"></slot>
+      </template>
+      <template v-if="$slots.loading" #loading>
+        <slot name="loading"></slot>
+      </template>
     </vxe-table>
     <div class="ven-page" v-if="isPage">
-      <div class="ven-page__left" v-if="isPageLeft">
-        <slot name="page-left">
-          共{{ tableInfo.total }}条{{ tableInfo.pages }}页，当前第{{
-            tableInfo.current
-          }}页。
-        </slot>
-      </div>
       <vxe-pager
         :current-page="tableInfo.current"
         :page-size="tableInfo.size"
@@ -42,12 +40,20 @@
         v-bind="_pageAttrs"
         @page-change="handlePageChange"
       >
+        <template v-if="$slots.left" #left>
+          <slot name="left"></slot>
+        </template>
+        <template v-if="$slots.right" #right>
+          <slot name="right"></slot>
+        </template>
       </vxe-pager>
     </div>
-  </div>
+  </Fragment>
+  <!--</div>-->
 </template>
 
 <script>
+import { Fragment } from "vue-fragment";
 import jsToolkit from "@vensst/js-toolkit";
 
 // why? 有的后端返回格式不一样
@@ -63,11 +69,11 @@ const defaultPageFieldOptions = {
 };
 const defaultPageOptions = {
   background: true,
-  layouts: ["PrevPage", "JumpNumber", "NextPage", "Sizes", "FullJump"],
+  layouts: ["PrevPage", "JumpNumber", "NextPage", "FullJump", "Sizes", "Total"],
 };
 export default {
   name: "Table",
-  components: {},
+  components: { Fragment },
   mixins: [],
   props: {
     // 是否分页
@@ -75,13 +81,10 @@ export default {
       type: Boolean,
       default: true,
     },
-    isPageLeft: {
-      type: Boolean,
-      default: true,
-    },
     // 表格数据接口
     tableDataApi: {
       type: Function,
+      default: null,
     },
     // 表单数据
     formData: {
@@ -143,12 +146,19 @@ export default {
         spanMethod: this.mergeRowMethod,
         ...this.$attrs,
       };
-      if (this.tableDataApi && typeof this.tableDataApi === "function") {
+      if (this.isUseApi()) {
         attrs = {
           ...attrs,
           data: this.tableInfo.tableData,
           loading: this.tableInfo.loading,
         };
+      } else {
+        if (!attrs.data?.length && this.tableInfo.tableData.length) {
+          attrs = {
+            ...attrs,
+            data: this.tableInfo.tableData,
+          };
+        }
       }
       return attrs;
     },
@@ -169,15 +179,18 @@ export default {
       handler() {
         this.tableInfo.tableData = this.tableData;
       },
+      deep: true,
       immediate: true,
     },
   },
   created() {
-    this.tableInfo.current = this._pageFieldOptions.defaultCurrentPage;
-    this.tableInfo.size = this._pageFieldOptions.defaultSize;
+    if (this.isPage) {
+      this.tableInfo.current = this._pageFieldOptions.defaultCurrentPage;
+      this.tableInfo.size = this._pageFieldOptions.defaultSize;
+    }
   },
   mounted() {
-    if (this.tableDataApi && typeof this.tableDataApi === "function") {
+    if (this.isUseApi()) {
       this.getList();
     } else {
       this.tableInfo.tableData = this.tableData;
@@ -186,6 +199,7 @@ export default {
   methods: {
     init() {
       this.tableInfo.current = 1;
+      this.tableInfo.tableData = [];
       this.getList();
     },
     update() {
@@ -261,22 +275,19 @@ export default {
       const { key, slot, ...filteredAttrs } = itemColumn;
       return filteredAttrs;
     },
+    /**
+     * 是否使用api方式
+     * @returns {boolean}
+     */
+    isUseApi() {
+      return this.tableDataApi && typeof this.tableDataApi === "function";
+    },
   },
 };
 </script>
 <style scoped>
-/*
-::v-deep .table--style .vxe-header--column {
-  background-color: #ebf4fe;
-  color: #0075f0;
-}
- */
-
 .ven-page {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
+  text-align: right;
   padding-top: 16px;
   padding-bottom: 16px;
   font-size: 14px;

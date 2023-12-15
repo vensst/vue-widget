@@ -1,9 +1,6 @@
 <template>
   <div class="">
-    <VenCaptcha
-      type="ordinary"
-      @change="onChange"
-    ></VenCaptcha>
+    <VenCaptcha type="ordinary" @change="onChange"></VenCaptcha>
     <VenCaptcha type="slide" @change="onChange"></VenCaptcha>
   </div>
 </template>

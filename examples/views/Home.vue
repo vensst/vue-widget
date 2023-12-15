@@ -24,11 +24,11 @@ export default {
     };
   },
   mounted() {},
-  beforeDestroy(){
-    console.log(this)
+  beforeDestroy() {
+    console.log(this);
   },
-  destroy(){
-    console.log(this)
+  destroy() {
+    console.log(this);
   },
   methods: {},
 };

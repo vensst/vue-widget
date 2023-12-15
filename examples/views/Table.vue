@@ -18,7 +18,18 @@
       }"
       @row-click="cellClickEvent"
     >
-      <template #operation="scope" >
+      <template #operation="scope">
+        <vxe-button @click.native.stop="getRow(scope)">按钮</vxe-button>
+        <vxe-button @click.native.stop="getRow(scope)">按钮</vxe-button>
+      </template>
+    </VenTable>
+    <VenTable
+      :tableData="tableData"
+      :tableColumn="tableColumn"
+      ref="tableRef"
+      :isPage="false"
+    >
+      <template #operation="scope">
         <vxe-button @click.native.stop="getRow(scope)">按钮</vxe-button>
         <vxe-button @click.native.stop="getRow(scope)">按钮</vxe-button>
       </template>
@@ -70,7 +81,6 @@ export default {
         dateTime: [],
       },
       listApi,
-      tableData: [],
       tableColumn: [
         { key: 1, type: "seq", title: "序号", width: 60 },
         { key: 2, field: "name", title: "名称1", minWidth: 160 },
@@ -82,12 +92,20 @@ export default {
           slot: "operation",
         },
       ],
+      tableData: [
+        { key: 1, id: "1", name: "2" },
+        { key: 2, id: "2", name: "2" },
+        { key: 3, id: "3", name: "2" },
+        { key: 4, id: "4", name: "2" },
+      ],
     };
   },
   computed: {},
   watch: {},
   created() {},
-  mounted() {},
+  mounted() {
+    console.log(this.$refs.tableRef);
+  },
   methods: {
     cellClickEvent(e) {
       console.log(e);

@@ -1,4 +1,4 @@
-import {bindDragEvent} from "~/utils";
+import { bindDragEvent } from "~/utils";
 
 /**
  * https://cn.vuejs.org/v2/guide/custom-directive.html
@@ -14,9 +14,8 @@ import {bindDragEvent} from "~/utils";
  */
 const drag = {
   inserted: function (el, binding) {
-
     let isRange = true;
-    let parentElSelector = 'body';
+    let parentElSelector = "body";
     if (binding.value) {
       if (binding.value.isRange !== undefined) {
         isRange = binding.value.isRange;

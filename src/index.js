@@ -1,3 +1,10 @@
+/*
+ * @Author: yfhu
+ * @Date: 2023-10-26 15:31:22
+ * @LastEditors: yfhu
+ * @LastEditTime: 2023-10-26 17:34:11
+ * @Description:
+ */
 import { prefix } from "~/config";
 
 /**
@@ -8,7 +15,7 @@ import useVXETable from "./plugins/VXETable.js";
 /**
  * 第三方插件，图片懒加载指令，vue-lazyload
  */
-import VueLazyload from "vue-lazyload";
+import VueLazyload from 'vue-lazyload';
 
 import * as directives from "./directives/index.js";
 
@@ -31,7 +38,6 @@ const VueWidget = {
 VueWidget.install = function (Vue, options = {}) {
   // 第三方组件
   useVXETable(Vue, options.table);
-
   // 第三方组件，图片懒加载
   Vue.use(VueLazyload, options.lazy);
 

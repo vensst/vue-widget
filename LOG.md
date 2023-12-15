@@ -1,5 +1,16 @@
 # 更新日志
 
+## 1.0.0-beta.5 (2023-12-15)
+
+### Features
+
+* 新增 Speech 语音播报组件（基于Web Speech API）
+* 增加 Table 组件中分页组件的left和right插槽
+
+### Fixes
+
+* 修复Table组件普通使用方式不显示数据问题
+
 ## 1.0.0-beta.4 (2023-9-4)
 
 ### Features

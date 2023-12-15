@@ -1,3 +1,10 @@
+/*
+ * @Author: 胡亚飞2329
+ * @Date: 2023-10-26 15:31:22
+ * @LastEditors: yfhu
+ * @LastEditTime: 2023-10-26 17:34:11
+ * @Description:
+ */
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
