@@ -96,7 +96,7 @@ export default function (Vue, options = {}) {
     ...(options.options || {}),
   });
 
-  Vue.use(Icon).use(Column).use(Table).use(Select).use(Pager);
+  // Vue.use(Icon).use(Column).use(Table).use(Select).use(Pager);// **
   // import("vxe-table/lib/style.css");
   // 按需引入样式 默认样式
   // import(`vxe-table/lib/icon/style/style.css`);

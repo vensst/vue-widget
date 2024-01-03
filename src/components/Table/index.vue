@@ -7,7 +7,6 @@
  * @LastEditTime: 2023-10-27 14:25:30
 -->
 <template>
-  <!--<div>-->
   <Fragment>
     <vxe-table
       ref="vxeTableRef"
@@ -15,16 +14,44 @@
       v-on="_listeners"
       @cell-click="cellClickEvent"
     >
-      <vxe-column
-        v-for="itemColumn in tableColumn"
-        :key="itemColumn.key"
-        v-bind="getColumnAttrs(itemColumn)"
+      <TheColumn
+        v-for="(itemColumn, itemColumnIndex) in tableColumn"
+        :itemColumn="itemColumn"
+        :key="itemColumnIndex"
+        :tableColumnIndex="itemColumnIndex"
       >
-        <!--将原来的scope数据原封不动返回-->
-        <template v-if="itemColumn.slot" v-slot:default="scope">
-          <slot :name="itemColumn.slot" v-bind="scope"></slot>
+        <template
+          v-if="itemColumn.slots && itemColumn.slots.default"
+          v-slot:default="scope"
+        >
+          <slot :name="itemColumn.slots.default" v-bind="scope"></slot>
         </template>
-      </vxe-column>
+        <template
+          v-if="itemColumn.slots && itemColumn.slots.header"
+          v-slot:header="scope"
+        >
+          <slot :name="itemColumn.slots.header" v-bind="scope"></slot>
+        </template>
+        <template
+          v-if="itemColumn.slots && itemColumn.slots.footer"
+          v-slot:footer="scope"
+        >
+          <slot :name="itemColumn.slots.footer" v-bind="scope"></slot>
+        </template>
+        <template
+          v-if="itemColumn.slots && itemColumn.slots.filter"
+          v-slot:filter="scope"
+        >
+          <slot :name="itemColumn.slots.filter" v-bind="scope"></slot>
+        </template>
+        <template
+          v-if="itemColumn.slots && itemColumn.slots.edit"
+          v-slot:edit="scope"
+        >
+          <slot :name="itemColumn.slots.edit" v-bind="scope"></slot>
+        </template>
+      </TheColumn>
+
       <template v-if="$slots.empty" #empty>
         <slot name="empty"></slot>
       </template>
@@ -49,12 +76,12 @@
       </vxe-pager>
     </div>
   </Fragment>
-  <!--</div>-->
 </template>
 
 <script>
 import { Fragment } from "vue-fragment";
-import jsToolkit from "@vensst/js-toolkit";
+import TheColumn from "./TheColumn.vue";
+import { chainGet, camelToKebab, isObject } from "@vensst/js-toolkit";
 
 // why? 有的后端返回格式不一样
 const defaultPageFieldOptions = {
@@ -73,7 +100,7 @@ const defaultPageOptions = {
 };
 export default {
   name: "Table",
-  components: { Fragment },
+  components: { Fragment, TheColumn },
   mixins: [],
   props: {
     // 是否分页
@@ -137,15 +164,28 @@ export default {
   },
   computed: {
     _attrs() {
-      let attrs = {
+      // key 统一使用短横线方式
+      const defaultAttrs = {
         border: true,
-        showOverflow: true,
-        scrollY: { enabled: false },
-        rowConfig: { isCurrent: false, isHover: true },
-        emptyText: "暂无数据",
-        spanMethod: this.mergeRowMethod,
-        ...this.$attrs,
+        // "show-overflow": true,
+        // "scroll-y": { enabled: false },
+        "row-config": {
+          // isCurrent: true,
+          isHover: true,
+        },
+        "empty-text": "暂无数据",
+        "span-method": this.mergeRowMethod,
+        // "tooltip-config": {
+        //   showAll: true,
+        //   enterable: true,
+        //   // eslint-disable-next-line no-unused-vars
+        //   contentMethod: (scope) => {
+        //     // { type, column, row, items, _columnIndex }
+        //     return null;
+        //   },
+        // },
       };
+      let attrs = this.mergeAttr(defaultAttrs, this.$attrs);
       if (this.isUseApi()) {
         attrs = {
           ...attrs,
@@ -160,6 +200,7 @@ export default {
           };
         }
       }
+
       return attrs;
     },
     _listeners() {
@@ -216,7 +257,7 @@ export default {
       this.tableDataApi(params)
         .then((res) => {
           const data = this._pageFieldOptions.dataPath
-            ? jsToolkit.chainGet(res, this._pageFieldOptions.dataPath)
+            ? chainGet(res, this._pageFieldOptions.dataPath)
             : res;
           this.tableInfo.tableData = data[this._pageFieldOptions.data];
           this.tableInfo.total = data[this._pageFieldOptions.total];
@@ -232,6 +273,37 @@ export default {
       this.$emit("row-click", e);
     },
     /**
+     * 递归合并attrs
+     * @param {Object} defaultAttrs 默认
+     * @param {Object} attrs 组件上传入的
+     * @param {boolean} isDeep 是否深度的
+     * @returns {*}
+     */
+    mergeAttr(defaultAttrs, attrs, isDeep = false) {
+      const newAttrs = {
+        ...defaultAttrs,
+      };
+      for (let key in attrs) {
+        if (
+          (Object.prototype.hasOwnProperty.call(newAttrs, key) ||
+            Object.prototype.hasOwnProperty.call(
+              newAttrs,
+              camelToKebab(key)
+            )) &&
+          isObject(attrs[key])
+        ) {
+          newAttrs[isDeep ? key : camelToKebab(key)] = this.mergeAttr(
+            newAttrs[key],
+            attrs[key],
+            true
+          );
+        } else {
+          newAttrs[isDeep ? key : camelToKebab(key)] = attrs[key];
+        }
+      }
+      return newAttrs;
+    },
+    /**
      * 合并行
      * @param row 当前行
      * @param _rowIndex
@@ -240,15 +312,20 @@ export default {
      * @returns {{colspan: number, rowspan: number}}
      */
     mergeRowMethod({ row, _rowIndex, column, visibleData }) {
+      //定义需要合并的列字段，有哪些列需要合并，就自定义添加字段即可
       const fields = this.mergeRowFields;
+      // 当前行的数据
       const cellValue = row[column.property];
+      // 判断只合并定义字段的列数据
       if (cellValue && fields.includes(column.property)) {
         const prevRow = visibleData[_rowIndex - 1];
         let nextRow = visibleData[_rowIndex + 1];
+        // 当上一行的数据等于当前行数据时，当前行单元格隐藏
         if (prevRow && prevRow[column.property] === cellValue) {
           return { rowspan: 0, colspan: 0 };
         } else {
-          let countRowspan = 1;
+          // 反之，则循环判断若下一行数据等于当前行数据，则当前行开始进行合并单元格
+          let countRowspan = 1; //用于合并计数多少单元格
           while (nextRow && nextRow[column.property] === cellValue) {
             nextRow = visibleData[++countRowspan + _rowIndex];
           }
@@ -272,7 +349,7 @@ export default {
     // 获取 column attrs 过滤掉 slot批量插入的属性
     getColumnAttrs(itemColumn) {
       // eslint-disable-next-line no-unused-vars
-      const { key, slot, ...filteredAttrs } = itemColumn;
+      const { slots, ...filteredAttrs } = itemColumn;
       return filteredAttrs;
     },
     /**

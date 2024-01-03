@@ -1,6 +1,6 @@
 {
   "name": "@vensst/vue-widget",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "description": "vue组件",
   "author": "vensst",
   "keywords": [
@@ -9,7 +9,9 @@
     "ui",
     "vue-widget",
     "@vensst/vue-widget",
-    "@vensst"
+    "@vensst",
+    "组件",
+    "表格"
   ],
   "main": "lib/@vensst/vue-widget.umd.min.js",
   "private": false,

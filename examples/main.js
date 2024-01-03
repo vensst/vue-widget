@@ -24,7 +24,18 @@ Vue.use(VenWidget, {
     attempt: 1,
   },
   table: {
-    components: ["Button"], // 按需引入组件
+    components: [
+      "Edit",
+      "Icon",
+      "Button",
+      "Colgroup",
+      "Tooltip",
+      "Input",
+      "Select",
+      "Pager",
+      "Column",
+      "Table",
+    ], // 按需引入组件
     // components:'all', // 为 all 则会全部引入
     options: {}, // 表格配置项 参考 https://vxetable.cn/v3/#/table/start/global
   },

@@ -1,5 +1,14 @@
 # 更新日志
 
+## 1.0.0-beta.6 (2024-1-3)
+
+### Perf Table
+
+* tableColumn 将slot改为slots
+* slots 增加 default、header、footer、filter、edit插槽具体参考示例
+* 增加支持树形结构展示
+* 去除默认按需引入的组件
+
 ## 1.0.0-beta.5 (2023-12-15)
 
 ### Features
