@@ -61,6 +61,9 @@ Vue.use(VenWidget, {
 // import { drag } from "../src/directives/index.js";
 // Vue.directive("drag", drag);
 
+import * as echarts from "echarts";
+Vue.prototype.$echarts = echarts;
+
 Vue.config.productionTip = false;
 new Vue({
   router,

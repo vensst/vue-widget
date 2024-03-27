@@ -1,10 +1,10 @@
 <!--
- * @Name: Empty.vue
- * @Description: 空
- * @Date: 2023/11/20 17:02
+ * @Name: index.vue
+ * @Description: 空状态
+ * @Date: 2024/3/27 14:24
  * @Author: huyafei
  * @LastEditors: huyafei
- * @LastEditTime: 2023/11/20 17:02
+ * @LastEditTime: 2024/3/27 14:24
 -->
 <template>
   <div class="empty" :style="{ height, minHeight }">
@@ -18,6 +18,7 @@
 export default {
   name: "Empty",
   props: {
+    // 空内容文案
     text: {
       type: String,
       default: "暂无数据",
@@ -36,8 +37,8 @@ export default {
 
 <style scoped>
 .empty {
+  width: 100%;
   height: 100%;
-  min-height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -15,7 +15,7 @@ import useVXETable from "./plugins/VXETable.js";
 /**
  * 第三方插件，图片懒加载指令，vue-lazyload
  */
-import VueLazyload from 'vue-lazyload';
+import VueLazyload from "vue-lazyload";
 
 import * as directives from "./directives/index.js";
 

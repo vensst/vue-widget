@@ -8,7 +8,9 @@
 -->
 <template>
   <div style="height: 100vh">
-    <Empty></Empty>
+    <!--<Empty></Empty>-->
+    <VenEmpty style="height: 320px"></VenEmpty>
+    <VenEmpty style="height: 320px"> 没有数据 </VenEmpty>
   </div>
 </template>
 
@@ -16,6 +18,7 @@
 import Empty from "@/components/Empty.vue";
 export default {
   title: "空状态",
+  // eslint-disable-next-line vue/no-unused-components
   components: { Empty },
   props: {},
 };
