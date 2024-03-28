@@ -60,7 +60,6 @@ export default {
     if (this.$echarts && !this.isEmpty) {
       this.chartInstance = this.$echarts.init(this.$refs.chartRef);
       this.updateChart();
-      console.log(this.chartInstance);
       window.addEventListener("resize", this.autoResize);
     }
   },
